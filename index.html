@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+                   script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com/; 
+                   style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/; 
+                   font-src 'self' https://cdnjs.cloudflare.com/; 
+                   img-src 'self' data: blob:; 
+                   connect-src 'self'; 
+                   media-src 'none'; 
+                   object-src 'none'; 
+                   child-src 'none'; 
+                   frame-ancestors 'none';
+                   base-uri 'self';
+                   form-action 'self' mailto:;">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), location=(), payment=(), geolocation=()">
+
+    <!-- SEO & Basic Meta -->
+    <title data-i18n-key="title">ZeroPix — ابزار حرفه‌ای پردازش تصویر</title>
+    <meta name="description"
+        content="ابزار آنلاین امن برای کاهش حجم، تغییر اندازه و تبدیل فرمت عکس. تمام پردازش‌ها در مرورگر شما انجام می‌شود.">
+    <meta name="keywords" content="کاهش حجم عکس, تبدیل فرمت عکس, تغییر اندازه تصویر, پردازش آنلاین عکس, ZeroPix">
+    <meta name="author" content="Ali Ashrafi">
+    <meta name="theme-color" content="#0ff5d4">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ZeroPix — ابزار حرفه‌ای پردازش تصویر">
+    <meta property="og:description" content="ابزار رایگان و امن برای فشرده‌سازی و تبدیل فرمت عکس">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:alt" content="ZeroPix Logo">
+    <meta property="og:locale" content="fa_IR">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ZeroPix — ابزار حرفه‌ای پردازش تصویر">
+    <meta name="twitter:description" content="رایگان، سریع و امن — کاهش حجم و تغییر فرمت تصاویر">
+    <meta name="twitter:image" content="logo.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" href="logo.png" type="image/png" crossorigin="anonymous">
+    <link rel="apple-touch-icon" href="logo.png" crossorigin="anonymous">
+    <link rel="manifest" href="manifest.json" crossorigin="anonymous">
+
+    <!-- Preload & Styles -->
+    <link rel="preload" href="style.css" as="style" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="respansive.css">
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ZeroPix",
+        "description": "ابزار آنلاین امن برای کاهش حجم و تبدیل فرمت تصاویر",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web Browser",
+        "softwareVersion": "2.0.0",
+        "inLanguage": ["fa", "en"],
+        "author": {
+            "@type": "Person",
+            "name": "Ali Ashrafi",
+            "email": "ali.1600.ashrafi@gmail.com"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "IRR"
+        }
+    }
+    </script>
+</head>
+
+<body class="dark-theme">
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header role="banner">
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" class="logo-link" aria-label="ZeroPix Home">
+                        <img src="logo.png" alt="ZeroPix Logo" class="logo-icon" width="32" height="32" loading="lazy"
+                            crossorigin="anonymous">
+                        <span>Zero<span>Pix</span></span>
+                    </a>
+                </div>
+
+                <div class="header-actions">
+                    <a href="mailto:ali.1600.ashrafi@gmail.com?subject=ZeroPix%20Feedback" class="contact-icon-header"
+                        title="ارسال بازخورد" aria-label="ارسال بازخورد">
+                        <i class="fas fa-comment-dots" aria-hidden="true"></i>
+                    </a>
+                    <button id="theme-toggle" aria-label="تغییر تم">
+                        <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            aria-hidden="true">
+                            <path
+                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.592a.75.75 0 01-1.06-1.061l1.591-1.591a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 011.06 0l1.591 1.591a.75.75 0 11-1.06 1.06l-1.591-1.592a.75.75 0 010-1.06zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM6.106 17.894a.75.75 0 010-1.06l-1.591-1.591a.75.75 0 11-1.061 1.06l1.591 1.591a.75.75 0 011.06 0zM3 12a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h2.25A.75.75 0 013 12zM6.106 6.106a.75.75 0 011.06 0l1.591 1.591a.75.75 0 01-1.06 1.061L6.106 7.167a.75.75 0 010-1.06z" />
+                        </svg>
+                        <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.472-.528.75.75 0 01.819.162.75.75 0 01-.296.958A10.5 10.5 0 119.528 1.718zM16.5 9a.75.75 0 01.75-.75 2.25 2.25 0 00-2.25-2.25.75.75 0 010-1.5 3.75 3.75 0 013.75 3.75.75.75 0 01-.75.75z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="lang-switcher-wrapper">
+                        <select id="lang-switcher" aria-label="انتخاب زبان">
+                            <option value="fa">🇮🇷 فارسی</option>
+                            <option value="en">🇺🇸 English</option>
+                        </select>
+                        <i class="fas fa-chevron-down lang-arrow" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container" role="main">
+            <!-- Sidebar Navigation -->
+            <aside id="sidebar" role="navigation" aria-label="منوی اصلی">
+                <nav class="sidebar-nav">
+                    <button class="tab-btn active" data-tab="compress" aria-selected="true" role="tab"
+                        aria-controls="panel-compress">
+                        <i class="fas fa-compress-alt" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.compress">کاهش حجم</span>
+                    </button>
+                    <button class="tab-btn" data-tab="resize" aria-selected="false" role="tab"
+                        aria-controls="panel-resize">
+                        <i class="fas fa-expand-alt" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.resize">تغییر اندازه</span>
+                    </button>
+                    <button class="tab-btn" data-tab="convert" aria-selected="false" role="tab"
+                        aria-controls="panel-convert">
+                        <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.convert">تغییر فرمت</span>
+                    </button>
+                    <button class="tab-btn" data-tab="batch" aria-selected="false" role="tab"
+                        aria-controls="panel-batch">
+                        <i class="fas fa-layer-group" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.batch">پردازش گروهی</span>
+                    </button>
+                    <button class="tab-btn" data-tab="help" aria-selected="false" role="tab" aria-controls="panel-help">
+                        <i class="fas fa-question-circle" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.help">راهنما</span>
+                    </button>
+                    <button class="tab-btn" data-tab="about" aria-selected="false" role="tab"
+                        aria-controls="panel-about">
+                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        <span data-i18n-key="nav.about">درباره ما</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Panels -->
+            <section class="content" role="tabpanel">
+                <!-- Compress Panel -->
+                <div class="panel active" id="panel-compress" role="tabpanel" aria-labelledby="compress-tab">
+                    <h1 data-i18n-key="compress.title">کاهش هوشمند حجم عکس</h1>
+                    <p class="panel-description" data-i18n-key="compress.description">
+                        حجم عکس‌های خود را بدون افت کیفیت محسوس کاهش دهید - مناسب برای وب‌سایت‌ها و شبکه‌های اجتماعی
+                    </p>
+
+                    <div id="compress-uploader" class="uploader" role="region"
+                        aria-labelledby="compress-uploader-label">
+                        <input type="file" id="input-compress"
+                            accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" hidden
+                            aria-describedby="compress-uploader-hint">
+                        <div class="uploader-icon">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                        </div>
+                        <div id="compress-uploader-label" class="drop-hint" data-i18n-key="uploaderHint">
+                            عکس را اینجا بکشید یا کلیک کنید
+                        </div>
+                        <div class="uploader-formats" data-i18n-key="compress.supportedFormats">
+                            فرمت‌های پشتیبانی: JPG, PNG, WebP, GIF, BMP
+                        </div>
+                    </div>
+
+                    <div id="compress-controls" class="controls-wrapper" style="display:none;" role="region"
+                        aria-live="polite">
+                        <div class="preview-section">
+                            <div class="preview-area" id="compress-preview-area" role="img"
+                                aria-label="پیش‌نمایش تصویر"></div>
+                            <div class="file-info" id="compress-file-info" aria-live="polite"></div>
+                        </div>
+
+                        <div class="controls-section">
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <label for="quality-slider" data-i18n-key="compress.qualityLabel">میزان
+                                        فشرده‌سازی</label>
+                                    <span class="quality-value" id="quality-val" aria-live="polite">80%</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" min="40" max="100" step="5" value="80" id="quality-slider"
+                                        class="modern-slider" aria-valuemin="40" aria-valuemax="100" aria-valuenow="80">
+                                    <div class="slider-labels">
+                                        <span data-i18n-key="compress.lowQuality">حجم کمتر</span>
+                                        <span data-i18n-key="compress.highQuality">کیفیت بیشتر</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="compression-preview" role="status">
+                                <div class="size-comparison">
+                                    <div class="size-original">
+                                        <span class="size-label" data-i18n-key="compress.originalSize">حجم اصلی</span>
+                                        <span class="size-value" id="original-size">-</span>
+                                    </div>
+                                    <div class="size-arrow" aria-hidden="true">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <div class="size-compressed">
+                                        <span class="size-label" data-i18n-key="compress.compressedSize">حجم جدید</span>
+                                        <span class="size-value" id="compressed-size">-</span>
+                                    </div>
+                                </div>
+                                <div class="savings-badge" id="savings-badge">
+                                    <span id="savings-percent">0%</span>
+                                    <span data-i18n-key="compress.savings">صرفه‌جویی</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="compare-section" id="compare-container" style="display: none;" role="region"
+                            aria-label="مقایسه قبل و بعد">
+                            <div class="compare-header">
+                                <h3 data-i18n-key="compress.compareTitle">مقایسه قبل و بعد</h3>
+                                <p data-i18n-key="compress.compareHint">اسلایدر را حرکت دهید برای مقایسه</p>
+                            </div>
+                            <div class="compare-box">
+                                <div class="img-container before">
+                                    <img src="" alt="تصویر قبل از فشرده‌سازی">
+                                    <div class="img-label before-label" data-i18n-key="info.original">اصلی</div>
+                                </div>
+                                <div class="img-container after">
+                                    <img src="" alt="تصویر بعد از فشرده‌سازی">
+                                    <div class="img-label after-label" data-i18n-key="info.processed">فشرده شده</div>
+                                </div>
+                                <input type="range" min="0" max="100" value="50" class="compare-slider"
+                                    aria-label="اسلایدر مقایسه تصویر قبل و بعد">
+                                <div class="slider-handle" aria-hidden="true">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="compress-btn" class="btn-primary">
+                                <i class="fas fa-bolt" aria-hidden="true"></i>
+                                <span data-i18n-key="compress.button">شروع کاهش حجم</span>
+                            </button>
+                            <button id="reset-compress-btn" class="btn-secondary">
+                                <i class="fas fa-redo" aria-hidden="true"></i>
+                                <span data-i18n-key="common.resetButton">عکس جدید</span>
+                            </button>
+                            <a id="download-compress" class="download-link" download style="display:none;"
+                                aria-label="دانلود تصویر فشرده شده">
+                                <i class="fas fa-download" aria-hidden="true"></i>
+                                <span data-i18n-key="common.download">دانلود عکس</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="statusbar" id="compress-status" aria-live="polite" role="status"></div>
+                </div>
+
+                <!-- Resize Panel -->
+                <div class="panel" id="panel-resize" style="display:none;" role="tabpanel" aria-labelledby="resize-tab">
+                    <h1 data-i18n-key="resize.title">تغییر اندازه و رزولوشن عکس</h1>
+                    <p class="panel-description" data-i18n-key="resize.description">
+                        ابعاد عکس خود را به اندازه‌های استاندارد تغییر دهید یا اندازه دلخواه تنظیم کنید
+                    </p>
+
+                    <div id="resize-uploader" class="uploader" role="region" aria-labelledby="resize-uploader-label">
+                        <input type="file" id="input-resize" accept="image/*" hidden
+                            aria-describedby="resize-uploader-hint">
+                        <div class="uploader-icon">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                        </div>
+                        <div id="resize-uploader-label" class="drop-hint" data-i18n-key="uploaderHint">
+                            عکس را اینجا بکشید یا کلیک کنید
+                        </div>
+                    </div>
+
+                    <div id="resize-controls" class="controls-wrapper" style="display:none;" role="region"
+                        aria-live="polite">
+                        <div class="preview-section">
+                            <div class="preview-area" id="resize-preview-area">
+                                <img id="resize-preview-img" style="display:none;" alt="پیش‌نمایش تصویر">
+                            </div>
+                            <div class="file-info" id="resize-file-info" aria-live="polite"></div>
+                        </div>
+
+                        <div class="controls-section">
+                            <div class="preset-sizes">
+                                <h4 data-i18n-key="resize.presetTitle">اندازه‌های پیشنهادی:</h4>
+                                <div class="preset-buttons">
+                                    <button class="preset-btn" data-width="1080" data-height="1080"
+                                        data-i18n-key="resize.presetInstagram">اینستاگرام مربعی</button>
+                                    <button class="preset-btn" data-width="1080" data-height="1350"
+                                        data-i18n-key="resize.presetStory">استوری اینستاگرام</button>
+                                    <button class="preset-btn" data-width="1200" data-height="630"
+                                        data-i18n-key="resize.presetFacebook">پست فیسبوک</button>
+                                    <button class="preset-btn" data-width="1280" data-height="720"
+                                        data-i18n-key="resize.presetHD">HD (720p)</button>
+                                    <button class="preset-btn" data-width="1920" data-height="1080"
+                                        data-i18n-key="resize.presetFullHD">Full HD (1080p)</button>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="dimension-controls">
+                                    <div class="control-item">
+                                        <label for="resize-width" data-i18n-key="resize.width">عرض (پیکسل)</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="resize-width" class="dimension-input" min="1"
+                                                max="10000" aria-required="true">
+                                            <span class="input-unit">px</span>
+                                        </div>
+                                    </div>
+                                    <div class="dimension-separator" aria-hidden="true">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="control-item">
+                                        <label for="resize-height" data-i18n-key="resize.height">ارتفاع (پیکسل)</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="resize-height" class="dimension-input" min="1"
+                                                max="10000" aria-required="true">
+                                            <span class="input-unit">px</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-options">
+                                    <div class="control-item-checkbox">
+                                        <input type="checkbox" id="aspect-ratio-lock" checked>
+                                        <label for="aspect-ratio-lock" data-i18n-key="resize.aspectLock">
+                                            <i class="fas fa-link" aria-hidden="true"></i>
+                                            حفظ نسبت ابعاد
+                                        </label>
+                                    </div>
+                                    <div class="control-item-checkbox">
+                                        <input type="checkbox" id="high-quality-resize" checked>
+                                        <label for="high-quality-resize" data-i18n-key="resize.highQuality">
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            کیفیت بالا
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="size-info">
+                                <div class="original-size" data-i18n-key="resize.originalSize">
+                                    سایز اصلی: <span id="original-dimensions">-</span>
+                                </div>
+                                <div class="new-size" data-i18n-key="resize.newSize">
+                                    سایز جدید: <span id="new-dimensions">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="resize-btn" class="btn-primary">
+                                <i class="fas fa-crop-alt" aria-hidden="true"></i>
+                                <span data-i18n-key="resize.button">تغییر اندازه</span>
+                            </button>
+                            <button id="reset-resize-btn" class="btn-secondary">
+                                <i class="fas fa-redo" aria-hidden="true"></i>
+                                <span data-i18n-key="common.resetButton">عکس جدید</span>
+                            </button>
+                            <a id="download-resize" class="download-link" download style="display:none;"
+                                aria-label="دانلود تصویر تغییر اندازه داده شده">
+                                <i class="fas fa-download" aria-hidden="true"></i>
+                                <span data-i18n-key="common.download">دانلود عکس</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="statusbar" id="resize-status" aria-live="polite" role="status"></div>
+                </div>
+
+                <!-- Convert Panel -->
+                <div class="panel" id="panel-convert" style="display:none;" role="tabpanel"
+                    aria-labelledby="convert-tab">
+                    <h1 data-i18n-key="convert.title">تبدیل هوشمند فرمت عکس</h1>
+                    <p class="panel-description" data-i18n-key="convert.description">
+                        عکس‌های خود را به فرمت‌های مدرن و بهینه تبدیل کنید تا حجم کمتر و کیفیت بهتری داشته باشند
+                    </p>
+
+                    <div id="convert-uploader" class="uploader" role="region" aria-labelledby="convert-uploader-label">
+                        <input type="file" id="input-convert" accept="image/*" hidden
+                            aria-describedby="convert-uploader-hint">
+                        <div class="uploader-icon">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                        </div>
+                        <div id="convert-uploader-label" class="drop-hint" data-i18n-key="uploaderHint">
+                            عکس را اینجا بکشید یا کلیک کنید
+                        </div>
+                    </div>
+
+                    <div id="convert-controls" class="controls-wrapper" style="display:none;" role="region"
+                        aria-live="polite">
+                        <div class="preview-section">
+                            <div class="preview-area" id="convert-preview-area">
+                                <img id="convert-preview-img" style="display:none;" alt="پیش‌نمایش تصویر">
+                            </div>
+                            <div class="file-info" id="convert-file-info" aria-live="polite"></div>
+                        </div>
+
+                        <div class="controls-section">
+                            <div class="format-recommendation">
+                                <h4 data-i18n-key="convert.recommendation">پیشنهاد فرمت مناسب:</h4>
+                                <div class="recommendation-cards">
+                                    <div class="format-card" data-format="image/webp" role="button" tabindex="0">
+                                        <div class="format-icon webp">WebP</div>
+                                        <div class="format-info">
+                                            <strong>WebP</strong>
+                                            <span data-i18n-key="convert.webpDesc">بهترین برای وب - حجم کم و کیفیت
+                                                بالا</span>
+                                        </div>
+                                    </div>
+                                    <div class="format-card" data-format="image/avif" role="button" tabindex="0">
+                                        <div class="format-icon avif">AVIF</div>
+                                        <div class="format-info">
+                                            <strong>AVIF</strong>
+                                            <span data-i18n-key="convert.avifDesc">جدیدترین فناوری - عالی برای
+                                                عکس‌ها</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="control-item full-width">
+                                    <label for="convert-type" data-i18n-key="convert.formatLabel">انتخاب فرمت
+                                        خروجی</label>
+                                    <select id="convert-type" class="modern-select" aria-required="true">
+                                        <option value="image/jpeg">JPEG - مناسب برای عکس‌های رنگی</option>
+                                        <option value="image/png">PNG - مناسب برای عکس‌های با transparency</option>
+                                        <option value="image/webp">WebP - مدرن و بهینه برای وب</option>
+                                        <option value="image/avif">AVIF - جدیدترین و کارآمدترین</option>
+                                        <option value="image/gif">GIF - مناسب برای انیمیشن</option>
+                                        <option value="image/bmp">BMP - فرمت بدون فشرده‌سازی</option>
+                                        <option value="image/tiff">TIFF - مناسب برای چاپ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="format-info-panel">
+                                <div class="info-card">
+                                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                    <div class="info-content">
+                                        <strong data-i18n-key="convert.currentFormat">فرمت فعلی:</strong>
+                                        <span id="current-format">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-card">
+                                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                                    <div class="info-content">
+                                        <strong data-i18n-key="convert.suggestion">پیشنهاد ما:</strong>
+                                        <span id="format-suggestion">WebP برای حجم کمتر</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="convert-btn" class="btn-primary">
+                                <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                                <span data-i18n-key="convert.button">تبدیل فرمت</span>
+                            </button>
+                            <button id="reset-convert-btn" class="btn-secondary">
+                                <i class="fas fa-redo" aria-hidden="true"></i>
+                                <span data-i18n-key="common.resetButton">عکس جدید</span>
+                            </button>
+                            <a id="download-convert" class="download-link" download style="display:none;"
+                                aria-label="دانلود تصویر تبدیل شده">
+                                <i class="fas fa-download" aria-hidden="true"></i>
+                                <span data-i18n-key="common.download">دانلود عکس</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="statusbar" id="convert-status" aria-live="polite" role="status"></div>
+                </div>
+
+                <!-- Batch Panel -->
+                <div class="panel" id="panel-batch" style="display:none;" role="tabpanel" aria-labelledby="batch-tab">
+                    <h1 data-i18n-key="batch.title">پردازش گروهی عکس‌ها</h1>
+                    <p class="panel-description" data-i18n-key="batch.description">
+                        عملیات کاهش حجم یا تغییر فرمت را به صورت همزمان روی چندین عکس انجام دهید
+                    </p>
+
+                    <div id="batch-uploader" class="uploader" role="region" aria-labelledby="batch-uploader-label">
+                        <input type="file" id="input-batch" accept="image/*" multiple hidden
+                            aria-describedby="batch-uploader-hint">
+                        <div class="uploader-icon">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                        </div>
+                        <div id="batch-uploader-label" class="drop-hint" data-i18n-key="batch.uploaderHint">
+                            چند عکس را بکشید یا کلیک کنید
+                        </div>
+                        <div class="uploader-note" data-i18n-key="batch.maxFiles">حداکثر ۲۰ فایل مجاز است</div>
+                    </div>
+
+                    <div id="batch-controls" class="controls-wrapper" style="display:none;" role="region"
+                        aria-live="polite">
+                        <div class="batch-header">
+                            <div class="files-count">
+                                <i class="fas fa-images" aria-hidden="true"></i>
+                                <span data-i18n-key="batch.selectedFiles">تعداد عکس‌های انتخاب شده:</span>
+                                <strong id="batch-files-count">0</strong>
+                            </div>
+                            <div class="total-size">
+                                <i class="fas fa-weight-hanging" aria-hidden="true"></i>
+                                <span data-i18n-key="batch.totalSize">حجم کل:</span>
+                                <strong id="batch-total-size">0</strong>
+                            </div>
+                        </div>
+
+                        <div id="batch-mode-selection">
+                            <h4 data-i18n-key="batch.selectMode">عملیات مورد نظر را انتخاب کنید:</h4>
+                            <div class="mode-buttons">
+                                <button id="batch-select-compress" class="mode-btn active" data-mode="compress"
+                                    aria-pressed="true">
+                                    <i class="fas fa-compress-alt" aria-hidden="true"></i>
+                                    <span data-i18n-key="batch.compressMode">کاهش حجم گروهی</span>
+                                    <small data-i18n-key="batch.compressDesc">کاهش حجم تمام عکس‌ها</small>
+                                </button>
+                                <button id="batch-select-convert" class="mode-btn" data-mode="convert"
+                                    aria-pressed="false">
+                                    <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                                    <span data-i18n-key="batch.convertMode">تبدیل فرمت گروهی</span>
+                                    <small data-i18n-key="batch.convertDesc">تبدیل فرمت تمام عکس‌ها</small>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="batch-options-container" style="display:none;">
+                            <div class="controls-grid" id="batch-dynamic-controls"></div>
+
+                            <div class="batch-preview">
+                                <h4 data-i18n-key="batch.filesList">لیست عکس‌ها:</h4>
+                                <div id="batch-file-list" class="file-list" role="list" aria-label="لیست فایل‌ها"></div>
+                            </div>
+
+                            <div class="batch-summary">
+                                <div class="summary-card">
+                                    <i class="fas fa-clock" aria-hidden="true"></i>
+                                    <div class="summary-content">
+                                        <span data-i18n-key="batch.estimatedTime">زمان تخمینی:</span>
+                                        <strong id="estimated-time">~10 ثانیه</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-card">
+                                    <i class="fas fa-hdd" aria-hidden="true"></i>
+                                    <div class="summary-content">
+                                        <span data-i18n-key="batch.estimatedSavings">صرفه‌جویی تخمینی:</span>
+                                        <strong id="estimated-savings">~60%</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="batch-process-btn" class="btn-primary">
+                                <i class="fas fa-play-circle" aria-hidden="true"></i>
+                                <span data-i18n-key="batch.button">شروع پردازش گروهی</span>
+                            </button>
+                            <button id="reset-batch-btn" class="btn-secondary">
+                                <i class="fas fa-redo" aria-hidden="true"></i>
+                                <span data-i18n-key="common.resetButton">عکس‌های جدید</span>
+                            </button>
+                            <a id="download-batch-zip" class="download-link" style="display:none;"
+                                aria-label="دانلود فایل ZIP حاوی تصاویر پردازش شده">
+                                <i class="fas fa-file-archive" aria-hidden="true"></i>
+                                <span data-i18n-key="common.downloadZip">دانلود فایل ZIP</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="statusbar" id="batch-status" aria-live="polite" role="status"></div>
+                </div>
+
+                <!-- Help Panel -->
+                <div class="panel text-content" id="panel-help" style="display:none;" role="tabpanel"
+                    aria-labelledby="help-tab">
+                    <h1 data-i18n-key="help.title">راهنمای استفاده از ZeroPix</h1>
+                    <div data-i18n-section="help">
+                        <!-- محتوای راهنما توسط JavaScript لود می‌شود -->
+                    </div>
+                </div>
+
+                <!-- About Panel -->
+                <div class="panel text-content" id="panel-about" style="display:none;" role="tabpanel"
+                    aria-labelledby="about-tab">
+                    <h1 data-i18n-key="about.title">درباره ZeroPix</h1>
+                    <div data-i18n-section="about">
+                        <!-- محتوای درباره ما توسط JavaScript لود می‌شود -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <span data-i18n-key="footer.credit">ساخته شده با ❤️ توسط علی اشرفی</span>
+                    <span class="footer-separator" aria-hidden="true">•</span>
+                    <span data-i18n-key="footer.version">نسخه ۲.۰</span>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:ali.1600.ashrafi@gmail.com" data-i18n-key="footer.contact">تماس با ما</a>
+                    <span class="footer-separator" aria-hidden="true">•</span>
+                    <a href="#" data-i18n-key="footer.privacy">حریم خصوصی</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-..."
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Main Application Script -->
+    <script src="script.js" crossorigin="anonymous"></script>
+    <script src="security.js"></script>
+    <script src="image-processor.js"></script>
+    <script src="utils.js"></script>
+    <script src="respansive.js"></script>
+
+
+
+    <!-- NoScript Fallback -->
+    <noscript>
+        <div class="noscript-warning" role="alert"
+            style="position: fixed; top: 0; left: 0; width: 100%; background: #ff4444; color: white; text-align: center; padding: 15px; z-index: 10000;">
+            <strong>هشدار:</strong> برای استفاده از ZeroPix لطفاً JavaScript را در مرورگر خود فعال کنید.
+        </div>
+    </noscript>
+</body>
+
+</html>
